@@ -1,0 +1,23 @@
+name: Deploy Docker application to Heroku # Name of the workflow
+
+# On a push to the branch named master
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to Heroku 
+    - uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: docker-mooc-nodejs
+          heroku_email: sakari.laulajainen@tuni.fi
+            
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
